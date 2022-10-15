@@ -20,13 +20,49 @@ motion_sensor = MotionSensor()
 # Circumference (in cm) of small SPIKE Prime wheel
 wheel_circumference = 17.5
 
+# Min motor power
+min_motor_power = 0
+
+# Max motor power
+max_motor_power = 100
+
+# Speed at full power in cm/s
+speed_at_max_motor_power = 39.123
+
+# Number of steps to accel to max speed and decel to min speed
+accel_steps = 10
+decel_steps = 10
+
+def move_fast(distance_cm):
+    total_degrees = abs(distance_cm) * 360 / wheel_circumference
+    drive_motor_left.set_degrees_counted(0)
+    drive_motor_right.set_degrees_counted(0)
+    motor = drive_motor_left if (distance_cm < 0) else drive_motor_right
+    power = 40
+    motion_sensor.reset_yaw_angle()
+    while motor.get_degrees_counted() < total_degrees:
+        correction = 0 - motion_sensor.get_yaw_angle()
+        if motor.get_degrees_counted() < total_degrees - 360:
+            power += 5
+            if power > 100:
+                power = 100
+        else:
+            power -= 10
+            if power < 20:
+                power = 20
+        print (power)
+        motor_power = power if (distance_cm > 0) else -power
+        drive_motor_pair.start_tank_at_power(
+            motor_power + correction, motor_power - correction)
+    drive_motor_pair.stop()
+
 
 def move(distance_cm):
     total_degrees = abs(distance_cm) * 360 / wheel_circumference
     drive_motor_left.set_degrees_counted(0)
     drive_motor_right.set_degrees_counted(0)
     motor = drive_motor_left if (distance_cm < 0) else drive_motor_right
-    power = 50
+    power = 40
     motor_power = power if (distance_cm > 0) else -power
     motion_sensor.reset_yaw_angle()
     while motor.get_degrees_counted() < total_degrees:
@@ -37,7 +73,7 @@ def move(distance_cm):
 
 
 def turn(angle_degrees):
-    speed = 3
+    speed = 10
     left_speed = speed if (angle_degrees > 0) else -speed
     right_speed = speed if (angle_degrees < 0) else -speed
     drive_motor_pair.start_tank(left_speed, right_speed)
@@ -61,42 +97,45 @@ def line_squaring():
             drive_motor_right.stop()
 
 
-def follow_line(follow_sensor, distance_cm):
+def follow_line(follow_sensor, distance_cm, correction_factor):
     total_degrees = abs(distance_cm) * 360 / wheel_circumference
-    drive_motor_left.set_degrees_counted(0)
     drive_motor_right.set_degrees_counted(0)
-    motor_power = 40
-    while drive_motor_left.get_degrees_counted() < total_degrees:
+    power = 50
+    while drive_motor_right.get_degrees_counted() < total_degrees:
         error = follow_sensor.get_reflected_light() - 50
-        correction = round(error * 0.3)
+        correction = round(error * correction_factor)
         drive_motor_pair.start_tank_at_power(
-            motor_power - correction, motor_power + correction)
+            power - correction, power + correction)
     drive_motor_pair.stop()
 
 
 def follow_line_left_sensor(distance_cm):
-    follow_line(color_sensor_left, distance_cm)
+    correction_factor = 0.3
+    follow_line(color_sensor_left, distance_cm, correction_factor)
 
 
 def follow_line_right_sensor(distance_cm):
-    follow_line(color_sensor_right, distance_cm)
+    correction_factor = -0.3
+    follow_line(color_sensor_right, distance_cm, correction_factor)
 
 
-def follow_line_to_intersection(follow_sensor, stop_sensor):
-    drive_motor_left.set_degrees_counted(0)
-    drive_motor_right.set_degrees_counted(0)
-    motor_power = 40
+def follow_line_to_intersection(follow_sensor, stop_sensor, correction_factor):
+    power = 50
     while stop_sensor.get_color() != 'black':
         error = follow_sensor.get_reflected_light() - 50
-        correction = round(error * 0.3)
+        correction = round(error * correction_factor)
         drive_motor_pair.start_tank_at_power(
-            motor_power - correction, motor_power + correction)
+            power - correction, power + correction)
     drive_motor_pair.stop()
 
 
 def follow_line_to_intersection_left_sensor():
-    follow_line_to_intersection(color_sensor_left, color_sensor_right)
+    correction_factor = 0.3
+    follow_line_to_intersection(color_sensor_left, color_sensor_right, correction_factor)
 
 
 def follow_line_to_intersection_right_sensor():
-    follow_line_to_intersection(color_sensor_right, color_sensor_left)
+    correction_factor = -0.3
+    follow_line_to_intersection(color_sensor_right, color_sensor_left, correction_factor)
+
+
