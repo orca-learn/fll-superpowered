@@ -139,3 +139,28 @@ def follow_line_to_intersection_right_sensor():
     follow_line_to_intersection(color_sensor_right, color_sensor_left, correction_factor)
 
 
+
+move(40)
+turn(30)
+move(45)
+turn (40)
+# oil mission push
+move(-20)
+move(26)
+turn(-90)
+# collect 2 energies
+move (20)
+move (-20)
+turn (90)
+move (20)
+turn (-90)
+# collect 1 energy
+move (15)
+move (-15)
+turn (90)
+move (35)
+turn (-90)
+move (20)
+turn (135)
+# go home 2
+move (110)
