@@ -137,64 +137,77 @@ def follow_line_to_intersection_right_sensor():
     follow_line_to_intersection(color_sensor_right, color_sensor_left, correction_factor)
 
 def path1():
+    # follow path to intersection
+    move(23)
+    turn(4)
+    follow_line_to_intersection_left_sensor()
+    turn(20)
+
+    # get 2 energy units
+    move(22)
+
+    # lining up with oil rig
+    move(-11)
+    turn(58)
+    follow_line_right_sensor(5)
+
+    # do oil rig
+    move(-15, 60)
+    move(10)
+    move(-12, 60)
+    move(10)
+    move(-12, 60)
+
+    # get engery unit
+    follow_line_right_sensor(31)
+    turn(-50)
+    move(13)
+    move(-14)
+    turn(50)
+
+    # get to intersection
+    follow_line_left_sensor(40)
+    follow_line_to_intersection_left_sensor()
+
+    # back up and turn left
+    move(-5)
+    turn(-45)
+    move(-5)
+    turn(-40)
+
+    # push hand
+    move(14)
+    move(-3)
+
+    # flip car lever
+    turn(60,50)
+    move(-21)
+    turn(10)
+    follow_line_left_sensor(10)
+    follow_line_to_intersection_left_sensor()
+    move(2)
+    turn(35)
+
+    # go home
+    move_fast(90)
+
+def path2():
+    move(42)
+    move(-10)
+    turn(-42)
+    move(46)
+    turn(80)
+    move(22)
+    move(-10)
+    move(10)
+    move(-10)
+    move(10)
+    move(-10)
+    turn(90)
+    move(50)
+
+def path3():
     move(40)
-    turn(30)
-    move(45)
-    turn (40)
-    # oil mission push
-    move(-20)
-    move(26)
-    turn(-90)
-    # collect 2 energies
-    move (15)
-    move (-20)
-    turn (90)
-    move (20)
-    turn (-90)
-    # collect 1 energy
-    move (15)
-    move (-15)
-    turn (90)
-    move (35)
-    turn (-90)
-    move (20)
-    turn (135)
-    # go home 2
-    move (110)
-
-
-move(23)
-turn(4)
-follow_line_to_intersection_left_sensor()
-turn(20)
-move(22)
-move(-11)
-turn(58)
-follow_line_right_sensor(5)
-move(-15, 60)
-move(10)
-move(-12, 60)
-move(10)
-move(-12, 60)
-follow_line_right_sensor(30)
-turn(-50)
-move(12)
-move(-13)
-turn(50)
-follow_line_left_sensor(40)
-follow_line_to_intersection_left_sensor()
-move(-5)
-turn(-45)
-move(-4)
-turn(-40)
-move(14)
-move(-3)
-turn(60,30)
-move(-21)
-turn(10)
-follow_line_left_sensor(10)
-follow_line_to_intersection_left_sensor()
-move(2)
-turn(35)
+    move(-40)
 
 
