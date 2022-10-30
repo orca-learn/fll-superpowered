@@ -43,7 +43,7 @@ def move_fast(distance_cm):
     while motor.get_degrees_counted() < total_degrees:
         correction = 0 - motion_sensor.get_yaw_angle()
         if motor.get_degrees_counted() < total_degrees - 360:
-            power += 5
+            power += 3
             if power > 100:
                 power = 100
         else:
@@ -84,8 +84,8 @@ def turn(angle_degrees, speed=10):
 def line_squaring():
     left_done = False
     right_done = False
-    speed = 20
-    drive_motor_pair.start_tank(-speed, speed)
+    power = 20
+    drive_motor_pair.start_tank_at_power(power, power)
     while not left_done and not right_done:
         if color_sensor_left.get_color() == 'black':
             left_done = True
@@ -209,5 +209,15 @@ def path2():
 def path3():
     move(40)
     move(-40)
+
+def path4():
+    move(75)
+    line_squaring()
+    move(3)
+    turn(92)
+    move(-10, 60)
+    move(5)
+    turn(-92, 30)
+    move_fast(95)
 
 
