@@ -43,7 +43,7 @@ def move_fast(distance_cm):
     while motor.get_degrees_counted() < total_degrees:
         correction = 0 - motion_sensor.get_yaw_angle()
         if motor.get_degrees_counted() < total_degrees - 360:
-            power += 3
+            power += 5
             if power > 100:
                 power = 100
         else:
@@ -57,7 +57,7 @@ def move_fast(distance_cm):
     drive_motor_pair.stop()
 
 
-def move(distance_cm, power=40):
+def move(distance_cm, power=50):
     total_degrees = abs(distance_cm) * 360 / wheel_circumference
     drive_motor_left.set_degrees_counted(0)
     drive_motor_right.set_degrees_counted(0)
@@ -84,7 +84,7 @@ def turn(angle_degrees, speed=10):
 def line_squaring():
     left_done = False
     right_done = False
-    power = 20
+    power = 35
     drive_motor_pair.start_tank_at_power(power, power)
     while not left_done and not right_done:
         if color_sensor_left.get_color() == 'black':
@@ -141,30 +141,24 @@ def path1():
     move(23)
     turn(4)
     follow_line_to_intersection_left_sensor()
-    turn(20)
-
+    turn(19)
     # get 2 energy units
     move(22)
-
     # lining up with oil rig
     move(-11)
     turn(58)
     follow_line_right_sensor(5)
-
     # do oil rig
-    move(-15, 60)
+    move(-16, 70)
     move(10)
-    move(-12, 60)
+    move(-12, 70)
     move(10)
-    move(-12, 60)
-
-    # get engery unit
-    follow_line_right_sensor(31)
-    turn(-50)
-    move(13)
+    # get energy unit
+    follow_line_right_sensor(27)
+    turn(-51)
+    move(12)
     move(-14)
-    turn(50)
-
+    turn(56)
     # get to intersection
     follow_line_left_sensor(40)
     follow_line_to_intersection_left_sensor()
@@ -213,14 +207,33 @@ def path3():
     move(-50,85)
 
 def path4():
-    move(75)
-    line_squaring()
-    move(3)
-    turn (90)
-    move(-11,70)
+    move(81)
+    #line_squaring()
+    #move(3)
+    turn (86,15)
+    move(-20)
     move(7)
-    turn (-90)
-    move(97,70)
+    turn (-97,30)
+    move(98,70)
+
+def path5():
+    move(23,40)
+    move(-37)
+
+def path6():
+    move(24)
+    turn(-32)
+    move(7,60)
+    move(-7)
+    turn(30)
+    move(40)
+    turn(-25)
+    move(20)
+    move(-20)
+    turn(40)
+    move(88)
+    turn(-93)
+    move(55)
 
 
 
