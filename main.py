@@ -192,32 +192,36 @@ def path1():
     move_fast(90)
 
 def path2():
-    move(42)
+    move(45)
+    move(-5)
+    turn (-45)
+    move(41)
+    turn (90)
+    move(15.5)
     move(-10)
-    turn(-42)
-    move(46)
-    turn(80)
-    move(22)
+    move(10)
     move(-10)
     move(10)
     move(-10)
     move(10)
-    move(-10)
-    turn(90)
-    move(50)
+    move(-8)
+    turn(110)
+    move(51,100)
 
 def path3():
-    move(40)
-    move(-40)
+    move(45,35)
+    move(-50,85)
 
 def path4():
     move(75)
     line_squaring()
     move(3)
-    turn(92)
-    move(-10, 60)
-    move(5)
-    turn(-92, 30)
-    move_fast(95)
+    turn (90)
+    move(-11,70)
+    move(7)
+    turn (-90)
+    move(97,70)
+
+
 
 
