@@ -50,7 +50,7 @@ def move_fast(distance_cm):
             power -= 10
             if power < 40:
                 power = 40
-        print (power)
+        #print (power)
         motor_power = power if (distance_cm > 0) else -power
         drive_motor_pair.start_tank_at_power(
             motor_power + correction, motor_power - correction)
@@ -118,7 +118,7 @@ def follow_line_right_sensor(distance_cm):
 
 
 def follow_line_to_intersection(follow_sensor, stop_sensor, correction_factor):
-    power = 35
+    power = 40
     while stop_sensor.get_color() != 'black':
         error = follow_sensor.get_reflected_light() - 50
         correction = round(error * correction_factor)
@@ -140,6 +140,7 @@ def path1():
     # follow path to intersection
     move(23)
     turn(4)
+    follow_line_left_sensor(20)
     follow_line_to_intersection_left_sensor()
     turn(19)
     # get 2 energy units
@@ -153,8 +154,10 @@ def path1():
     move(10)
     move(-12, 70)
     move(10)
+    # move(-12, 70)
+    # move(10)
     # get energy unit
-    follow_line_right_sensor(27)
+    follow_line_right_sensor(26)
     turn(-51)
     move(12)
     move(-14)
@@ -162,44 +165,42 @@ def path1():
     # get to intersection
     follow_line_left_sensor(40)
     follow_line_to_intersection_left_sensor()
-
     # back up and turn left
     move(-5)
     turn(-45)
-    move(-5)
+    move(-6)
     turn(-40)
-
     # push hand
     move(14)
-    move(-3)
-
+    move(-4)
     # flip car lever
-    turn(60,50)
+    turn(50,35)
     move(-21)
-    turn(10)
+    turn(13)
     follow_line_left_sensor(10)
     follow_line_to_intersection_left_sensor()
     move(2)
     turn(35)
-
     # go home
     move_fast(90)
 
 def path2():
     move(45)
-    move(-5)
-    turn (-45)
-    move(41)
-    turn (90)
-    move(15.5)
-    move(-10)
-    move(10)
-    move(-10)
-    move(10)
-    move(-10)
-    move(10)
-    move(-8)
-    turn(110)
+    move(-15)
+    turn(-45)
+    move(45)
+    turn(90)
+    move(23,55)
+    move(-12,30)
+    move(16,55)
+    move(-12,30)
+    move(16,55)
+    move(-12,30)
+    move(16,55)
+    move(-8,30)
+    turn(-90,30)
+    turn(-90,30)
+    turn(-60,30)
     move(51,100)
 
 def path3():
@@ -207,23 +208,26 @@ def path3():
     move(-50,85)
 
 def path4():
+    move_fast(170)
+
+def path4_old():
     move(81)
     #line_squaring()
     #move(3)
-    turn (86,15)
-    move(-20)
+    turn (88,20)
+    move(-20,60)
     move(7)
     turn (-97,30)
     move(98,70)
 
 def path5():
     move(23,40)
-    move(-37)
+    move(-40)
 
-def path6():
-    move(24)
-    turn(-32)
-    move(7,60)
+def path6old():
+    move(28)
+    turn(-43,20)
+    move(9,60)
     move(-7)
     turn(30)
     move(40)
@@ -231,9 +235,20 @@ def path6():
     move(20)
     move(-20)
     turn(40)
-    move(88)
-    turn(-93)
-    move(55)
+    move(84)
+    turn(-98,20)
+    move(53,60)
+
+def path6():
+    move(28)
+    turn(-33)
+    move(6,55)
+    move(-8)
+    turn(27)
+    move(40,30)
+    turn(-25)
+    move(18,30)
+
 
 
 
